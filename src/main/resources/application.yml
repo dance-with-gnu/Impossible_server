@@ -1,0 +1,55 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 8080
+logging:
+  level:
+    org.springframework.boot.web.servlet.error: DEBUG
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+  application:
+    name: demo
+  jpa:
+    open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: e954bc827d2ea8fa11a15b0286fc682e
+            client-secret: E8be7qDJI4hGUy3VARLdomQotKY7gwx7
+            client-name: Kakao
+            provider: kakao
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            scope: profile_nickname, account_email
+            client-authentication-method: client_secret_post
+
+          apple:
+            client-id: YOUR_APPLE_CLIENT_ID
+            client-secret: YOUR_APPLE_CLIENT_SECRET
+            client-name: Apple
+            provider: apple
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            scope: name, email
+            client-authentication-method: client_secret_post
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+            jwk-set-uri: https://kauth.kakao.com/oauth/jwks
+          apple:
+            authorization-uri: https://appleid.apple.com/auth/authorize
+            token-uri: https://appleid.apple.com/auth/token
+            user-info-uri: https://appleid.apple.com/auth/userinfo
+            user-name-attribute: name
+            jwk-set-uri: https://appleid.apple.com/auth/keys

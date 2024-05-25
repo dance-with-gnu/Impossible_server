@@ -1,25 +1,25 @@
 package dance.withgnu.demo.user.controller;
 
-import dance.withgnu.demo.user.service.LoginService;
-import dance.withgnu.demo.user.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class LoginController {
 
-    @Autowired
-    private LoginService loginService;
-
-    @GetMapping("/login/kakao")
-    public User loginWithKakao(@RequestParam String kakaoId) {
-        return loginService.loginWithKakao(kakaoId);
+    @GetMapping("/loginSuccess")
+    public String loginSuccess(@AuthenticationPrincipal OAuth2User oAuth2User) {
+        // 로그인 성공 시 처리
+        if (oAuth2User != null) {
+            System.out.println("User attributes: " + oAuth2User.getAttributes());
+        }
+        return "redirect:/main";
     }
 
-    @GetMapping("/login/apple")
-    public User loginWithApple(@RequestParam String appleId) {
-        return loginService.loginWithApple(appleId);
+    @GetMapping("/loginFailure")
+    public String loginFailure() {
+        // 로그인 실패 시 처리
+        return "redirect:/login";
     }
 }

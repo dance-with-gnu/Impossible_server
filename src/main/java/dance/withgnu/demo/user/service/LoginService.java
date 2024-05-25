@@ -1,11 +1,11 @@
 package dance.withgnu.demo.user.service;
 
-import dance.withgnu.demo.user.entity.AppleUser;
-import dance.withgnu.demo.user.entity.KakaoUser;
-import dance.withgnu.demo.user.entity.User;
-import dance.withgnu.demo.user.repository.AppleUserRepository;
-import dance.withgnu.demo.user.repository.KakaoUserRepository;
+import dance.withgnu.demo.user.entity.UserEntity;
+import dance.withgnu.demo.user.entity.KakaoUserEntity;
+import dance.withgnu.demo.user.entity.AppleUserEntity;
 import dance.withgnu.demo.user.repository.UserRepository;
+import dance.withgnu.demo.user.repository.KakaoUserRepository;
+import dance.withgnu.demo.user.repository.AppleUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,18 +21,18 @@ public class LoginService {
     @Autowired
     private AppleUserRepository appleUserRepository;
 
-    public User loginWithKakao(String kakaoId) {
-        KakaoUser kakaoUser = kakaoUserRepository.findByKakaoId(kakaoId);
-        if (kakaoUser != null) {
-            return userRepository.findByUserId(kakaoUser.getUserId());
+    public UserEntity loginWithKakao(String kakaoId) {
+        KakaoUserEntity kakaoUserEntity = kakaoUserRepository.findByKakaoId(kakaoId);
+        if (kakaoUserEntity != null) {
+            return userRepository.findByUserId(kakaoUserEntity.getUserId());
         }
         return null;
     }
 
-    public User loginWithApple(String appleId) {
-        AppleUser appleUser = appleUserRepository.findByAppleId(appleId);
-        if (appleUser != null) {
-            return userRepository.findByUserId(appleUser.getUserId());
+    public UserEntity loginWithApple(String appleId) {
+        AppleUserEntity appleUserEntity = appleUserRepository.findByAppleId(appleId);
+        if (appleUserEntity != null) {
+            return userRepository.findByUserId(appleUserEntity.getUserId());
         }
         return null;
     }

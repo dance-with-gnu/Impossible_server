@@ -6,13 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class KakaoUser {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int userId;
-    private String kakaoId;
+    private int userType;
 
     // getters and setters
     public Long getId() {
@@ -31,11 +31,11 @@ public class KakaoUser {
         this.userId = userId;
     }
 
-    public String getKakaoId() {
-        return kakaoId;
+    public int getUserType() {
+        return userType;
     }
 
-    public void setKakaoId(String kakaoId) {
-        this.kakaoId = kakaoId;
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 }

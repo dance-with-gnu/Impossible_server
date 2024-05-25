@@ -6,13 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class AppleUser {
+public class KakaoUserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int userId;
-    private String appleId;
+    private String kakaoId;
 
     // getters and setters
     public Long getId() {
@@ -31,11 +31,11 @@ public class AppleUser {
         this.userId = userId;
     }
 
-    public String getAppleId() {
-        return appleId;
+    public String getKakaoId() {
+        return kakaoId;
     }
 
-    public void setAppleId(String appleId) {
-        this.appleId = appleId;
+    public void setKakaoId(String kakaoId) {
+        this.kakaoId = kakaoId;
     }
 }
