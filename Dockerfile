@@ -4,7 +4,7 @@ FROM bellsoft/liberica-openjdk-alpine:17
 # FROM openjdk:8-jdk-alpine
 # FROM openjdk:11-jdk-alpine
 # Set the working directory
-WORKDIR /mnt/sdb/code/impossible
+#WORKDIR /mnt/sdb/code/impossible
 
 CMD ["./gradlew", "clean", "build"]
 # or Maven
