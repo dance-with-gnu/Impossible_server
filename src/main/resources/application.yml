@@ -11,7 +11,11 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-
+#  datasource:
+#    url: jdbc:mysql://localhost:43306/impossible
+#    username: root
+#    password: Test1234!
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: demo
   jpa:
