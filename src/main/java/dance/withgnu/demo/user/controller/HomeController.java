@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "loginSelection"; // loginSelection.html 템플릿을 반환합니다.
+        return "loginSelection";
     }
 }

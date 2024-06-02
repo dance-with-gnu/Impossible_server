@@ -8,7 +8,7 @@ public class MainController {
 
     @GetMapping("/main")
     public String main() {
-        return "main"; // main.html 템플릿을 반환합니다.
+        return "main";
     }
 
 //    @GetMapping("/")
