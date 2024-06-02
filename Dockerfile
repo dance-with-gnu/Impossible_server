@@ -1,21 +1,32 @@
+# Use Gradle to build the application
+FROM gradle:7.2.0-jdk17 AS build
 
-FROM bellsoft/liberica-openjdk-alpine:17
-# or
-# FROM openjdk:8-jdk-alpine
-# FROM openjdk:11-jdk-alpine
 # Set the working directory
-#WORKDIR /mnt/sdb/code/impossible
+WORKDIR /app
 
-CMD ["./gradlew", "clean", "build"]
-# or Maven
-# CMD ["./mvnw", "clean", "package"]
+# Copy the Gradle files and download dependencies
+COPY build.gradle settings.gradle ./
+COPY gradle ./gradle
+RUN gradle build --no-daemon
 
-ARG JAR_FILE=build/libs/*.jar
-# or Maven
-# ARG JAR_FILE_PATH=target/*.jar
+# Copy the source code and build the application
+COPY src ./src
+RUN gradle build --no-daemon
 
-COPY ${JAR_FILE} app.jar
+# Use a slim Java image to run the application
+FROM openjdk:17-jdk-slim
 
+# Set the working directory
+WORKDIR /mnt/sdb/code/impossible
+
+# Copy the built JAR file from the previous stage
+COPY --from=build /app/build/libs/*.jar app.jar
+
+# Set the timezone
+RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && echo Asia/Seoul > /etc/timezone
+
+# Expose the port the application runs on
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Run the JAR file
+ENTRYPOINT ["java","-jar","app.jar"]
