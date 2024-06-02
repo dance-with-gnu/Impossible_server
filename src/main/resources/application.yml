@@ -1,3 +1,7 @@
+fastapi:
+  base-url: http://163.239.27.110:8890
+
+
 server:
   error:
     whitelabel:
@@ -6,6 +10,8 @@ server:
 logging:
   level:
     org.springframework.boot.web.servlet.error: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+
 spring:
   mvc:
     view:
