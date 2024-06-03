@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/video")
-public class VideoController {
+@RequestMapping("/dashboard")
+public class DashboardController {
 
-    @GetMapping("/list")
-    public String getVideoList() {
-        return "Video List";
+    @GetMapping("/user")
+    public String getUser() {
+        return "User Info";
     }
 
     // 기타 메서드 추가

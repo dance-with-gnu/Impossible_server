@@ -1,7 +1,17 @@
 fastapi:
   base-url: http://163.239.27.110:8890
 
-
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui/index.html
+    groups-order: DESC
+    doc-expansion: none
+    tags-sorter: alpha
+    operationsSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
 server:
   error:
     whitelabel:

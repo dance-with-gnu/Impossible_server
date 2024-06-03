@@ -6,16 +6,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Video {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private String videoLink;
+    private Long videoId;
     private String name;
     private String createDate;
-    private String thumbnail;
+    private int likeCount;
+    private int view;
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -33,12 +36,12 @@ public class Video {
         this.userId = userId;
     }
 
-    public String getVideoLink() {
-        return videoLink;
+    public Long getVideoId() {
+        return videoId;
     }
 
-    public void setVideoLink(String videoLink) {
-        this.videoLink = videoLink;
+    public void setVideoId(Long videoId) {
+        this.videoId = videoId;
     }
 
     public String getName() {
@@ -57,13 +60,20 @@ public class Video {
         this.createDate = createDate;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public int getLikeCount() {
+        return likeCount;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 
-    // getters and setters
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
 }

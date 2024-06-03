@@ -13,6 +13,7 @@ public class UserEntity {
     private Long id;
     private int userId;
     private int userType;
+    private String accessToken; // accessToken 필드 추가
 
     // getters and setters
     public Long getId() {
@@ -37,5 +38,13 @@ public class UserEntity {
 
     public void setUserType(int userType) {
         this.userType = userType;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

@@ -1,16 +1,18 @@
 package dance.withgnu.demo.user.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/video")
-public class VideoController {
+@RequestMapping("/pose")
+public class PoseController {
 
     @GetMapping("/list")
-    public String getVideoList() {
-        return "Video List";
+    @Operation(summary = "포즈 리스트", description = "포즈 리스트 path")
+    public String getList() {
+        return "Pose List";
     }
 
     // 기타 메서드 추가
