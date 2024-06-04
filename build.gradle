@@ -25,13 +25,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // Thymeleaf 의존성 추가
     implementation 'com.auth0:java-jwt:4.0.0' // java jwt 라이브러리
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70' // BouncyCastle 프로바이더
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.671'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'// Swagger 용
 
-
-
-    runtimeOnly 'com.h2database:h2' // H2 데이터베이스 (테스트용)
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.1.RELEASE'
+//    runtimeOnly 'com.h2database:h2' // H2 데이터베이스 (테스트용)
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
     testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Test
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit 런처
+
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {

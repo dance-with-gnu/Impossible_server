@@ -38,3 +38,5 @@ out/
 
 ### Desktop ###
 Desktop/
+
+.env*
