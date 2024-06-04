@@ -12,7 +12,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int userId;
+    private Long userId;
     private String userName;
     private String profileImageUrl;
     private LocalDateTime createDate;
@@ -29,11 +29,11 @@ public class UserEntity {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

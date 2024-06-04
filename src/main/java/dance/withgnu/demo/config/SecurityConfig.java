@@ -8,12 +8,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
-
 import java.util.List;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final CorsConfigurationSource corsConfigurationSource;
+
+    public SecurityConfig(CorsConfigurationSource corsConfigurationSource) {
+        this.corsConfigurationSource = corsConfigurationSource;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, OAuth2AuthorizationRequestResolver customAuthorizationRequestResolver) throws Exception {
@@ -33,7 +39,7 @@ public class SecurityConfig {
                                 .userService(oAuth2UserService())
                         )
                 )
-                .cors(cors -> cors.configurationSource(CorsConfig.corsConfigurationSource()))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(csrf -> csrf.disable()); // CSRF 보호 비활성화
 
         return http.build();
@@ -43,7 +49,6 @@ public class SecurityConfig {
     public CustomAuthorizationRequestResolver customAuthorizationRequestResolver(ClientRegistrationRepository clientRegistrationRepository) {
         return new CustomAuthorizationRequestResolver(clientRegistrationRepository);
     }
-
 
     @Bean
     public CustomOAuth2UserService oAuth2UserService() {

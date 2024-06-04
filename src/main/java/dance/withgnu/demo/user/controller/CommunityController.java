@@ -17,19 +17,8 @@ public class CommunityController {
         return "Community Test";
     }
 
-    // 기타 메서드 추가
+    @GetMapping("/videolist")
+    public String VideoList() { return "VideoList";}
+
 }
-//@RestController
-//public class CommunityController {
-//
-//    @GetMapping("/community/videos")
-//    public List<Video> getVideos() {
-//        // 비디오 리스트 반환 로직
-//        return null;
-//    }
-//
-////    @PostMapping("/community/like")
-////    public void likeVideo(@RequestBody LikeRequest likeRequest) {
-////        // 좋아요 로직
-////    }
-//}
+

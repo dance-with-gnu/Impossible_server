@@ -1,7 +1,9 @@
 package dance.withgnu.demo.user.service;
 
+
 import dance.withgnu.demo.user.entity.Pose;
 import dance.withgnu.demo.user.entity.UserEntity;
+
 import dance.withgnu.demo.user.entity.Video;
 import dance.withgnu.demo.user.repository.PoseRepository;
 import dance.withgnu.demo.user.repository.UserRepository;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 
 import static dance.withgnu.demo.user.entity.Video.*;
+
 
 @Service
 public class VideoService {
@@ -63,5 +66,6 @@ public class VideoService {
         videoRepository.save(video);
 
         return s3Url;
+
     }
 }

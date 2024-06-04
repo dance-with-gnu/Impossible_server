@@ -18,6 +18,10 @@ public class Pose {
     private int shareCount;
     private String thumbnail;
 
+
+
+    private String musicName;
+
     // Getters and setters
     public Long getId() {
         return id;
@@ -72,5 +76,13 @@ public class Pose {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public String getMusicName() {
+        return musicName;
+    }
+
+    public void setMusicName(String musicName) {
+        this.musicName = musicName;
     }
 }
