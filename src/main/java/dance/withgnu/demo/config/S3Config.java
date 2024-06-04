@@ -1,4 +1,4 @@
-package dance.withgnu.demo.util;
+package dance.withgnu.demo.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
