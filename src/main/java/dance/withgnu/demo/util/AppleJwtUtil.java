@@ -9,7 +9,6 @@ import java.security.PrivateKey;
 import java.security.Security;
 import java.security.interfaces.ECPrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.Base64;
 import java.util.Date;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -27,7 +26,7 @@ public class AppleJwtUtil {
             ECPrivateKey privateKey = getPrivateKeyFromPem(privateKeyPem);
             Algorithm algorithm = Algorithm.ECDSA256(null, privateKey);
 
-            return JWT.create()
+            String jwtToken = JWT.create()
                     .withIssuer(teamId)
                     .withIssuedAt(new Date())
                     .withExpiresAt(new Date(System.currentTimeMillis() + 3600000)) // 1 hour
@@ -35,6 +34,11 @@ public class AppleJwtUtil {
                     .withSubject(clientId)
                     .withKeyId(keyId)
                     .sign(algorithm);
+
+            // JWT 토큰 출력
+            System.out.println("Generated JWT Token: " + jwtToken);
+
+            return jwtToken;
         } catch (Exception e) {
             throw new RuntimeException("Error creating JWT", e);
         }
