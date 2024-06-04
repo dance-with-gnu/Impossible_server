@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Tag(name = "컨트롤러")
+@Tag(name = "API", description = "API List")
 public class DataController {
 
     private static final Logger logger = LoggerFactory.getLogger(DataController.class);
