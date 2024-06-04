@@ -47,7 +47,7 @@ public class VideoService {
             dto.setView(0); // 예시 View
             dto.setPoseId(0); // 예시 PoseId
             dto.setPoseCategoryId(0); // 예시 PoseCategoryId
-            dto.setVideoUrl(video.getVideoLink());
+            dto.setVideoUrl(video.getVideoUrl());
             dto.setCreateDate(video.getCreateDate());
             return dto;
         }).collect(Collectors.toList());
