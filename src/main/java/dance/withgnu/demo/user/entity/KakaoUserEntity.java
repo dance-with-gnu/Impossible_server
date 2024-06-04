@@ -23,7 +23,7 @@ public class KakaoUserEntity {
         this.id = id;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 

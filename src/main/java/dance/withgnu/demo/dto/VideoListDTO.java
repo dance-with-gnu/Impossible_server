@@ -4,13 +4,38 @@ import java.time.LocalDateTime;
 
 public class VideoListDTO {
 
-    public Long getUserId() {
-        return userId;
+    private Long videoId;
+    private Long userId;
+    private String userName;
+    private String musicName;
+    private int poseNumber;
+    private int heart;
+    private int view;
+    private Long poseId;
+    private int poseCategoryId;
+    private String videoUrl;
+    private LocalDateTime createDate;
+
+    // 필요한 생성자
+    public VideoListDTO(Long videoId, Long userId, String userName, String musicName, int poseNumber, int heart, int view, Long poseId, int poseCategoryId, String videoUrl, LocalDateTime createDate) {
+        this.videoId = videoId;
+        this.userId = userId;
+        this.userName = userName;
+        this.musicName = musicName;
+        this.poseNumber = poseNumber;
+        this.heart = heart;
+        this.view = view;
+        this.poseId = poseId;
+        this.poseCategoryId = poseCategoryId;
+        this.videoUrl = videoUrl;
+        this.createDate = createDate;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public VideoListDTO() {
+
     }
+
+    // Getters and Setters
 
     public Long getVideoId() {
         return videoId;
@@ -19,6 +44,15 @@ public class VideoListDTO {
     public void setVideoId(Long videoId) {
         this.videoId = videoId;
     }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -59,11 +93,11 @@ public class VideoListDTO {
         this.view = view;
     }
 
-    public int getPoseId() {
+    public Long getPoseId() {
         return poseId;
     }
 
-    public void setPoseId(int poseId) {
+    public void setPoseId(Long poseId) {
         this.poseId = poseId;
     }
 
@@ -90,18 +124,4 @@ public class VideoListDTO {
     public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
-
-    private Long userId;
-    private Long videoId;
-    private String userName;
-    private String musicName;
-    private int poseNumber;
-    private int heart;
-    private int view;
-    private int poseId;
-    private int poseCategoryId;
-    private String videoUrl;
-    private LocalDateTime createDate;
-
-    // Getters and Setters
 }
