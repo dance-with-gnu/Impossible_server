@@ -61,6 +61,7 @@ spring:
         format_sql: true
         show_sql: true
         highlight_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
     defer-datasource-initialization: true
   security:
     oauth2:
