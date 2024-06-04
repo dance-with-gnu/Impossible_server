@@ -28,7 +28,6 @@ public class S3Controller {
             @RequestPart(value = "name") String name,
             @RequestPart(value = "file", required = false) MultipartFile file
     ) {
-        System.out.println("teams endpoint called");
         s3Service.uploadProfile(name, file);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -38,7 +37,6 @@ public class S3Controller {
             @RequestPart(value = "name") String name,
             @RequestPart(value = "file", required = false) MultipartFile file
     ) {
-        System.out.println("teams endpoint called");
         s3Service.uploadThumbnail(name, file);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -48,20 +46,7 @@ public class S3Controller {
             @RequestPart(value = "name") String name,
             @RequestPart(value = "file", required = false) MultipartFile file
     ) {
-        System.out.println("teams endpoint called");
         s3Service.uploadVideo(name, file);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping(path = "/s3/hello")
-    public ResponseEntity<Void> hello() {
-        System.out.println("Hello endpoint called");
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping(path = "/s3/hello")
-    public ResponseEntity<Void> post_hello() {
-        System.out.println("Post Hello endpoint called");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
