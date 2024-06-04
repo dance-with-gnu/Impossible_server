@@ -18,20 +18,23 @@ public class S3Service {
     }
 
     @Transactional
-    public void uploadThumbnail(String name, MultipartFile file) {
+    public String uploadThumbnail(String name, MultipartFile file) {
         String url = "";
         if (file != null) url = s3Util.uploadFileToS3(file, "thumbnails");
+        return url;
     }
 
     @Transactional
-    public void uploadVideo(String name, MultipartFile file) {
+    public String uploadVideo(String name, MultipartFile file) {
         String url = "";
         if (file != null) url = s3Util.uploadFileToS3(file, "videos");
+        return url;
     }
 
     @Transactional
-    public void uploadProfile(String name, MultipartFile file) {
+    public String uploadProfile(String name, MultipartFile file) {
         String url = "";
         if (file != null) url = s3Util.uploadFileToS3(file, "profile");
+        return url;
     }
 }
