@@ -25,4 +25,6 @@ public class MainController {
             return "Error calling FastAPI: " + e.getMessage();
         }
     }
+
+
 }
