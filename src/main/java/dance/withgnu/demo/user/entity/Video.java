@@ -4,22 +4,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
 public class Video {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private Long videoId;
     private String userName;
     private String musicName;
     private Integer poseNumber;
     private Integer heart;
     private Integer view;
-    private Long poseId;
     private Integer poseCategoryId; // 0 for full body, 1 for half body
     private String videoUrl;
     private LocalDateTime createDate;
@@ -38,14 +39,6 @@ public class Video {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Long getVideoId() {
-        return videoId;
-    }
-
-    public void setVideoId(Long videoId) {
-        this.videoId = videoId;
     }
 
     public String getUserName() {
@@ -88,13 +81,6 @@ public class Video {
         this.view = view;
     }
 
-    public Long getPoseId() {
-        return poseId;
-    }
-
-    public void setPoseId(Long poseId) {
-        this.poseId = poseId;
-    }
 
     public Integer getPoseCategoryId() {
         return poseCategoryId;

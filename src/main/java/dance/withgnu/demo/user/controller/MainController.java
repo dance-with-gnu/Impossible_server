@@ -1,15 +1,20 @@
 package dance.withgnu.demo.user.controller;
 
 import dance.withgnu.demo.user.service.S3Service;
+import dance.withgnu.demo.user.service.VideoService;
+import io.swagger.v3.oas.annotations.Operation;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,6 +24,8 @@ import java.nio.file.Paths;
 
 @RestController
 public class MainController {
+
+    private final VideoService videoService;
 
     @Value("${ai.server.host}")
     private String aiHost;
@@ -31,6 +38,10 @@ public class MainController {
 
     @Autowired
     private S3Service s3Service;
+
+    public MainController(VideoService videoService) {
+        this.videoService = videoService;
+    }
 
     private String getAIUrl(String path) {
         return "http://" + aiHost + ":" + aiPort + "/" + path;
@@ -50,7 +61,9 @@ public class MainController {
     }
 
     @PostMapping("/video/upload")
+    @Operation(summary = "Upload video", description = "Upload video and save to S3")
     public ResponseEntity<String> makeVideoFastApi(
+            @RequestParam("user_id") int userId,
             @RequestParam("file") MultipartFile file,
             @RequestParam("dance_number") int danceNumber,
             @RequestParam("step_size") int stepSize,
@@ -58,6 +71,7 @@ public class MainController {
             @RequestParam(value = "length", required = false) Integer length
     ) {
         try {
+            System.out.println("시작");
             // Create headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -92,7 +106,26 @@ public class MainController {
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] videoBytes = response.getBody();
                 if (videoBytes != null) {
-                    String s3Url = s3Service.uploadVideo("_", file);
+                    // Save the video file to a temporary location
+                    File tempFile = File.createTempFile("received_video", ".mp4");
+                    try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                        fos.write(videoBytes);
+                    }
+
+                    // Convert the temporary file to MultipartFile
+                    DiskFileItem fileItem = new DiskFileItem("file", Files.probeContentType(tempFile.toPath()), false, tempFile.getName(), (int) tempFile.length(), tempFile.getParentFile());
+                    fileItem.getOutputStream().write(Files.readAllBytes(tempFile.toPath()));
+                    MultipartFile multipartFile = new MockMultipartFile(
+                            tempFile.getName(), tempFile.getName(), "video/mp4", Files.readAllBytes(tempFile.toPath()));
+
+
+                    // Upload to S3
+                    String s3Url = videoService.createAndSaveVideo(userId, multipartFile, danceNumber, stepSize, fps, length);
+
+
+                    // Optionally, delete the temporary file
+                    tempFile.delete();
+
 
                     return ResponseEntity.ok("Video received and uploaded to S3: " + s3Url);
                 } else {
