@@ -11,6 +11,8 @@ public class Pose {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int poseId;
+    private int poseCategoryId;
     private String name;
     private int likeCount;
     private int shareCount;
@@ -27,6 +29,21 @@ public class Pose {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getPoseId() {
+        return poseId;
+    }
+
+    public void setPoseId(int poseId) {
+        this.poseId = poseId;
+    }
+    public int getPoseCategoryId() {
+        return poseCategoryId;
+    }
+
+    public void setPoseCategoryId(int poseCategoryId) {
+        this.poseCategoryId = poseCategoryId;
     }
 
     public String getName() {

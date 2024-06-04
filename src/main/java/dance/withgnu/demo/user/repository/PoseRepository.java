@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PoseRepository extends JpaRepository<Pose, Long> {
+    Pose findByPoseId(int poseId);
 }

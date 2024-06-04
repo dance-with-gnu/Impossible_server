@@ -1,55 +1,71 @@
 package dance.withgnu.demo.user.service;
 
-import dance.withgnu.demo.dto.VideoListDTO;
+
+import dance.withgnu.demo.user.entity.Pose;
+import dance.withgnu.demo.user.entity.UserEntity;
+
 import dance.withgnu.demo.user.entity.Video;
+import dance.withgnu.demo.user.repository.PoseRepository;
+import dance.withgnu.demo.user.repository.UserRepository;
 import dance.withgnu.demo.user.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+
+import static dance.withgnu.demo.user.entity.Video.*;
+
 
 @Service
 public class VideoService {
 
+    private final VideoRepository videoRepository;
+    private final UserRepository userRepository;
+    private final PoseRepository poseRepository;
+    private final S3Service s3Service;
+
     @Autowired
-    private VideoRepository videoRepository;
-    public String uploadMedia(MultipartFile file, Long videoId) {
-        try {
-            // 파일 저장 경로 설정
-            Path path = Paths.get("uploads/" + file.getOriginalFilename());
-
-            // 파일 저장
-            Files.write(path, file.getBytes());
-
-            // 비디오 메타데이터 저장 로직 (예: videoId와 함께 데이터베이스에 저장)
-
-            return "File uploaded successfully";
-        } catch (IOException e) {
-            return "Failed to upload file: " + e.getMessage();
-        }
+    public VideoService(VideoRepository videoRepository, UserRepository userRepository, PoseRepository poseRepository, S3Service s3Service) {
+        this.videoRepository = videoRepository;
+        this.userRepository = userRepository;
+        this.poseRepository = poseRepository;
+        this.s3Service = s3Service;
     }
-    public List<VideoListDTO> getAllVideos() {
-        List<Video> videos = videoRepository.findAll();
-        return videos.stream().map(video -> {
-            VideoListDTO dto = new VideoListDTO();
-            dto.setUserId(video.getUserId());
-            dto.setVideoId(video.getVideoId());
-            dto.setUserName("UserName"); // 예시 사용자 이름,
-            dto.setMusicName("MusicName"); // 예시 음악 이름
-            dto.setPoseNumber(0); // 예시 PoseNumber
-            dto.setHeart(0); // 예시 Heart
-            dto.setView(0); // 예시 View
-            dto.setPoseId(0L); // 예시 PoseId
-            dto.setPoseCategoryId(0); // 예시 PoseCategoryId
-            dto.setVideoUrl(video.getVideoUrl());
-            dto.setCreateDate(video.getCreateDate());
-            return dto;
-        }).collect(Collectors.toList());
+
+    @Transactional
+    public String createAndSaveVideo(int userId, MultipartFile file, int danceNumber, int stepSize, int fps, Integer length) {
+        System.out.println("시작은?");
+        UserEntity user = userRepository.findByUserId(userId);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        Pose pose = poseRepository.findByPoseId(danceNumber);
+        if (pose == null) {
+            throw new RuntimeException("Pose not found");
+        }
+        System.out.println("여기는?");
+
+        String s3Url = s3Service.uploadVideo(user.getUserName(), file);
+        System.out.println("여기는 왔나?");
+        Video video = Video.builder()
+                .userId((long) userId)
+                .userName(user.getUserName())
+                .musicName(pose.getName())
+                .poseNumber(pose.getPoseId())
+                .heart(0)
+                .view(0)
+                .poseNumber((int) pose.getPoseId())
+                .poseCategoryId(pose.getPoseCategoryId())
+                .videoUrl(s3Url)
+                .createDate(LocalDateTime.now())
+                .build();
+
+        videoRepository.save(video);
+
+        return s3Url;
+
     }
 }

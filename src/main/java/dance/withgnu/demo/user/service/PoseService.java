@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class PoseService {
 
+    private final PoseRepository poseRepository;
+
     @Autowired
-    private PoseRepository poseRepository;
+    public PoseService(PoseRepository poseRepository) {
+        this.poseRepository = poseRepository;
+    }
 
     public List<Pose> getAllPoses() {
         return poseRepository.findAll();
