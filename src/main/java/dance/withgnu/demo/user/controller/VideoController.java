@@ -1,19 +1,28 @@
 package dance.withgnu.demo.user.controller;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import dance.withgnu.demo.user.service.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@Tag(name = "API", description = "API List")
-@RequestMapping("/video")
 public class VideoController {
 
-    @GetMapping("/list")
-    public String getVideoList() {
-        return "Video List";
-    }
+    @Autowired
+    private VideoService videoService;
 
-    // 기타 메서드 추가
+    @PostMapping(path = "/video/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> uploadVideo(
+            @RequestPart("image") MultipartFile image,
+            @RequestParam("videoId") Long videoId
+    ) {
+        String result = videoService.uploadMedia(image, videoId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

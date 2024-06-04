@@ -17,5 +17,9 @@ public class PoseController {
         return "Pose List";
     }
 
+
+    @GetMapping("/like")
+    @Operation(summary = "좋아요", description = "좋아요 갯수")
+    public String getLike() { return "좋아요 갯수";}
     // 기타 메서드 추가
 }

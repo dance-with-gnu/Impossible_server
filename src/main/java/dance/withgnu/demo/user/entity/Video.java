@@ -5,17 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Video {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
-    private String videoLink;
-    private String name;
-    private String createDate;
-    private String thumbnail;
 
     public Long getId() {
         return id;
@@ -49,14 +46,12 @@ public class Video {
         this.name = name;
     }
 
-    public String getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
-
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
-
     public String getThumbnail() {
         return thumbnail;
     }
@@ -64,6 +59,14 @@ public class Video {
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
+    public Long getVideoId() {
+        return this.id;
+    }
+    private Long userId;
+    private String videoLink;
+    private String name;
+    private LocalDateTime createDate;
+    private String thumbnail;
 
     // getters and setters
 }
