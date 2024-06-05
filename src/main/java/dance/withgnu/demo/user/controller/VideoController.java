@@ -20,9 +20,13 @@ public class VideoController {
     @PostMapping(path = "/video/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> uploadVideo(
             @RequestPart("image") MultipartFile image,
-            @RequestParam("videoId") Long videoId
+            @RequestParam("userId") Long userId,
+            @RequestParam("danceNumber") int danceNumber,
+            @RequestParam("stepSize") int stepSize,
+            @RequestParam("fps") int fps,
+            @RequestParam("length") Integer length
     ) {
-        String result = videoService.uploadMedia(image, videoId);
+        String result = videoService.createAndSaveVideo(userId, image, danceNumber, stepSize, fps, length);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

@@ -1,9 +1,7 @@
 package dance.withgnu.demo.user.service;
 
-
 import dance.withgnu.demo.user.entity.Pose;
 import dance.withgnu.demo.user.entity.UserEntity;
-
 import dance.withgnu.demo.user.entity.Video;
 import dance.withgnu.demo.user.repository.PoseRepository;
 import dance.withgnu.demo.user.repository.UserRepository;
@@ -14,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-
-import static dance.withgnu.demo.user.entity.Video.*;
-
 
 @Service
 public class VideoService {
@@ -35,8 +30,7 @@ public class VideoService {
     }
 
     @Transactional
-    public String createAndSaveVideo(int userId, MultipartFile file, int danceNumber, int stepSize, int fps, Integer length) {
-        System.out.println("시작은?");
+    public String createAndSaveVideo(Long userId, MultipartFile file, int danceNumber, int stepSize, int fps, Integer length) {
         UserEntity user = userRepository.findByUserId(userId);
         if (user == null) {
             throw new RuntimeException("User not found");
@@ -46,18 +40,16 @@ public class VideoService {
         if (pose == null) {
             throw new RuntimeException("Pose not found");
         }
-        System.out.println("여기는?");
 
         String s3Url = s3Service.uploadVideo(user.getUserName(), file);
-        System.out.println("여기는 왔나?");
+
         Video video = Video.builder()
-                .userId((long) userId)
+                .userId(userId)
                 .userName(user.getUserName())
                 .musicName(pose.getName())
                 .poseNumber(pose.getPoseId())
                 .heart(0)
                 .view(0)
-                .poseNumber((int) pose.getPoseId())
                 .poseCategoryId(pose.getPoseCategoryId())
                 .videoUrl(s3Url)
                 .createDate(LocalDateTime.now())
@@ -66,6 +58,5 @@ public class VideoService {
         videoRepository.save(video);
 
         return s3Url;
-
     }
 }
