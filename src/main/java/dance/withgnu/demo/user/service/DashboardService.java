@@ -5,6 +5,7 @@ import dance.withgnu.demo.dto.VideoListDTO;
 import dance.withgnu.demo.user.entity.UserEntity;
 import dance.withgnu.demo.user.repository.UserRepository;
 import dance.withgnu.demo.user.repository.VideoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +15,28 @@ import java.util.stream.Collectors;
 @Service
 public class DashboardService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final VideoRepository videoRepository;
 
     @Autowired
-    private VideoRepository videoRepository;
+    public DashboardService(UserRepository userRepository, VideoRepository videoRepository) {
+        this.userRepository = userRepository;
+        this.videoRepository = videoRepository;
+    }
 
+    @Transactional
     public UserDTO getUserInfo(Long userId) {
         UserEntity user = userRepository.findByUserId(userId);
-        List<VideoListDTO> videoDTOs = videoRepository.findByUserId(userId)
+        if (user == null) {
+            throw new RuntimeException("User not found with id: " + userId);
+        }
+
+        List<VideoListDTO> videos = videoRepository.findByUserId(userId)
                 .stream()
                 .map(video -> new VideoListDTO(
                         video.getId(),
-                        user.getId(),
-                        user.getUserName(),
+                        video.getUserId(),
+                        video.getUserName(),
                         video.getMusicName(),
                         video.getPoseNumber(),
                         video.getHeart(),
@@ -35,9 +44,9 @@ public class DashboardService {
                         video.getPoseId(),
                         video.getPoseCategoryId(),
                         video.getVideoUrl(),
-                        video.getCreateDate()
-                ))
+                        video.getCreateDate()))
                 .collect(Collectors.toList());
-        return UserDTO.fromEntity(user, videoDTOs);
+
+        return UserDTO.fromEntity(user, videos);
     }
 }
