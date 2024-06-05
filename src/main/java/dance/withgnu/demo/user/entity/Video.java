@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,7 +29,6 @@ public class Video {
     private Integer poseCategoryId; // 0 for full body, 1 for half body
     private String videoUrl;
     private LocalDateTime createDate;
-
 
     public Long getId() {
         return id;

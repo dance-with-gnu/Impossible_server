@@ -280,3 +280,6 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'AI
 2024-06-05T11:50:57.098+09:00  INFO 19192 --- [demo] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2024-06-05T11:50:57.100+09:00  INFO 19192 --- [demo] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 2024-06-05T12:10:07.980+09:00  INFO 19192 --- [demo] [http-nio-8080-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 352 ms
+2024-06-05T12:26:10.487+09:00  INFO 19192 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-05T12:26:10.503+09:00  INFO 19192 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-06-05T12:26:10.504+09:00  INFO 19192 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
