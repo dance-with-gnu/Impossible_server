@@ -26,11 +26,8 @@ public class PoseController {
 
     @GetMapping("/list")
     @Operation(summary = "포즈 리스트", description = "포즈 리스트 path")
-    public Pose getList(@RequestParam String x) {
-        // x 값을 사용하여 Pose 객체를 생성하고 반환합니다.
-        Pose pose = new Pose();
-        pose.setId(Long.parseLong(x));
-        return pose;
+    public List<Pose> getList() {
+        return poseService.getAllPoses();
     }
 
     @GetMapping("/like")
