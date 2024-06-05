@@ -14,10 +14,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     UserEntity findByAccessToken(String accessToken);
 
-    @Query("SELECT new dance.withgnu.demo.dto.UserDTO(u.id, u.userId, u.userName, u.profileImageUrl, COUNT(v), null) " +
+    @Query("SELECT new dance.withgnu.demo.dto.UserDTO(u.id, u.userId, u.userName, u.profileImageUrl, COUNT(v)) " +
             "FROM UserEntity u LEFT JOIN Video v ON u.userId = v.userId " +
             "WHERE u.userId = :userId GROUP BY u.userId")
-    UserDTO getUserInfo(@Param("userId") int userId);
+    UserDTO getUserInfo(@Param("userId") Long userId);
+
 }
 
 

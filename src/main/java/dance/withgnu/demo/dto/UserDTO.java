@@ -61,15 +61,23 @@ public class UserDTO {
         this.videos = videos;
     }
 
+    // 파라미터가 있는 생성자
+    public UserDTO(Long id, Long userId, String userName, String profileImageUrl, long videoCount) {
+        this.id = id;
+        this.userId = userId;
+        this.userName = userName;
+        this.profileImageUrl = profileImageUrl;
+        this.videoCount = (int) videoCount;
+    }
+
     // UserEntity로부터 UserDTO를 생성하는 정적 팩토리 메서드
     public static UserDTO fromEntity(UserEntity userEntity, List<VideoListDTO> videos) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(userEntity.getId());
-        userDTO.setUserId(userEntity.getUserId());
-        userDTO.setUserName(userEntity.getUserName());
-        userDTO.setProfileImageUrl(userEntity.getProfileImageUrl());
-        userDTO.setVideoCount(videos.size());
-        userDTO.setVideos(videos);
-        return userDTO;
+        return new UserDTO(
+                userEntity.getId(),
+                userEntity.getUserId(),
+                userEntity.getUserName(),
+                userEntity.getProfileImageUrl(),
+                videos.size()
+        );
     }
 }

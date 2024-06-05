@@ -14,15 +14,20 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class VideoController {
 
-//    @Autowired
-//    private VideoService videoService;
-//
-//    @PostMapping(path = "/video/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-//    public ResponseEntity<String> uploadVideo(
-//            @RequestPart("image") MultipartFile image,
-//            @RequestParam("videoId") Long videoId
-//    ) {
-//        String result = videoService.createAndSaveVideo(image, videoId);
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
+
+    @Autowired
+    private VideoService videoService;
+
+    @PostMapping(path = "/video/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> uploadVideo(
+            @RequestPart("image") MultipartFile image,
+            @RequestParam("userId") Long userId,
+            @RequestParam("danceNumber") int danceNumber,
+            @RequestParam("stepSize") int stepSize,
+            @RequestParam("fps") int fps,
+            @RequestParam("length") Integer length
+    ) {
+        String result = videoService.createAndSaveVideo(userId, image, danceNumber, stepSize, fps, length);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

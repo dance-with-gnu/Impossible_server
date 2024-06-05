@@ -74,7 +74,7 @@ public class MainController {
     @PostMapping("/video/upload")
     @Operation(summary = "Upload video", description = "Upload video and save to S3")
     public ResponseEntity<String> makeVideoFastApi(
-            @RequestParam("user_id") int userId,
+            @RequestParam("user_id") Long userId,
             @RequestParam("file") MultipartFile file,
             @RequestParam("dance_number") int danceNumber,
             @RequestParam("step_size") int stepSize,

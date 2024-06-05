@@ -21,7 +21,7 @@ public class UserService {
     private VideoRepository videoRepository;
 
     public UserDTO getUserInfoById(Long userId) {
-        UserDTO userDTO = userRepository.getUserInfo(Math.toIntExact(userId));
+        UserDTO userDTO = userRepository.getUserInfo(userId);
 
         List<Video> videos = videoRepository.findByUserId(userId);
         List<VideoListDTO> videoListDTOs = videos.stream()
