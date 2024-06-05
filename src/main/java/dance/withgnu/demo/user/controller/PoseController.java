@@ -30,7 +30,6 @@ public class PoseController {
         // x 값을 사용하여 Pose 객체를 생성하고 반환합니다.
         Pose pose = new Pose();
         pose.setId(Long.parseLong(x));
-        pose.setMusicName("Music" + x);
         return pose;
     }
 

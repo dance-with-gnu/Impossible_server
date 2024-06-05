@@ -36,8 +36,7 @@ public class VideoService {
 
     @Transactional
     public String createAndSaveVideo(int userId, MultipartFile file, int danceNumber, int stepSize, int fps, Integer length) {
-        System.out.println("시작은?");
-        UserEntity user = userRepository.findByUserId(userId);
+        UserEntity user = userRepository.findByUserId((long) userId);
         if (user == null) {
             throw new RuntimeException("User not found");
         }
@@ -46,10 +45,8 @@ public class VideoService {
         if (pose == null) {
             throw new RuntimeException("Pose not found");
         }
-        System.out.println("여기는?");
 
         String s3Url = s3Service.uploadVideo(user.getUserName(), file);
-        System.out.println("여기는 왔나?");
         Video video = Video.builder()
                 .userId((long) userId)
                 .userName(user.getUserName())

@@ -32,7 +32,7 @@ public class DashboardService {
                         video.getPoseNumber(),
                         video.getHeart(),
                         video.getView(),
-                        video.getPoseId(),
+                        video.getUserId(),
                         video.getPoseCategoryId(),
                         video.getVideoUrl(),
                         video.getCreateDate()

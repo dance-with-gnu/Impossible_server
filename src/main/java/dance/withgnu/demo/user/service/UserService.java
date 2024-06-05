@@ -33,7 +33,7 @@ public class UserService {
                         0,           // 대체할 실제 pose number
                         0,           // 대체할 실제 heart 수
                         0,           // 대체할 실제 view 수
-                        video.getPoseId(),
+                        video.getUserId(),
                         video.getPoseCategoryId(),
                         video.getVideoUrl(),
                         video.getCreateDate()
