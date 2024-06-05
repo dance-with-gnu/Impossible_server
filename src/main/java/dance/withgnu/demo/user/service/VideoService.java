@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class VideoService {
@@ -29,7 +30,12 @@ public class VideoService {
         this.s3Service = s3Service;
     }
 
+    public List<Video> getVideosExcludingUser(Long userId) {
+        return videoRepository.findByUserIdNot(userId);
+    }
+
     @Transactional
+
     public String createAndSaveVideo(Long userId, MultipartFile file, int danceNumber, int stepSize, int fps, Integer length) {
         UserEntity user = userRepository.findByUserId(userId);
         if (user == null) {

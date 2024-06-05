@@ -3,6 +3,7 @@ package dance.withgnu.demo.user.service;
 import dance.withgnu.demo.dto.UserDTO;
 import dance.withgnu.demo.dto.VideoListDTO;
 import dance.withgnu.demo.user.entity.UserEntity;
+import dance.withgnu.demo.user.entity.Video;
 import dance.withgnu.demo.user.repository.UserRepository;
 import dance.withgnu.demo.user.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ public class DashboardService {
 
     @Autowired
     private VideoRepository videoRepository;
-
+    public List<Video> getUserVideo(Long userId) {
+        return videoRepository.findByUserId(userId);
+    }
     public UserDTO getUserInfo(Long userId) {
         UserEntity user = userRepository.findByUserId(userId);
         List<VideoListDTO> videoDTOs = videoRepository.findByUserId(userId)
@@ -32,7 +35,7 @@ public class DashboardService {
                         video.getPoseNumber(),
                         video.getHeart(),
                         video.getView(),
-                        video.getPoseId(),
+                        video.getUserId(),
                         video.getPoseCategoryId(),
                         video.getVideoUrl(),
                         video.getCreateDate()

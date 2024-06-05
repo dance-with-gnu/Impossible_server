@@ -17,10 +17,12 @@ public class Pose {
     private int likeCount;
     private int shareCount;
     private String thumbnail;
+    private String videoPath;
 
 
+    public String getVideoPath(){return videoPath;}
 
-    private String musicName;
+    public void setVideoPath(String videoPath){this.videoPath=videoPath;}
 
     // Getters and setters
     public Long getId() {
@@ -78,11 +80,4 @@ public class Pose {
         this.thumbnail = thumbnail;
     }
 
-    public String getMusicName() {
-        return musicName;
-    }
-
-    public void setMusicName(String musicName) {
-        this.musicName = musicName;
-    }
 }

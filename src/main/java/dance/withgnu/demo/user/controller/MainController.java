@@ -60,6 +60,17 @@ public class MainController {
         }
     }
 
+    @PostMapping("/video/upload/example")
+    @Operation(summary = "Upload video", description = "Upload video and save to S3")
+    public ResponseEntity<String> makeVideoFastApi(
+            @RequestParam("file") MultipartFile file
+    ) {
+
+        // Upload to S3
+//                    String s3Url = videoService.createAndSaveVideo(userId, multipartFile, danceNumber, stepSize, fps, length);
+        String s3Url = s3Service.uploadVideo("hello", file);
+        return ResponseEntity.ok("Video received and uploaded to S3: " + s3Url);
+    }
     @PostMapping("/video/upload")
     @Operation(summary = "Upload video", description = "Upload video and save to S3")
     public ResponseEntity<String> makeVideoFastApi(
@@ -67,11 +78,10 @@ public class MainController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("dance_number") int danceNumber,
             @RequestParam("step_size") int stepSize,
-            @RequestParam(value = "fps", required = false, defaultValue = "30") int fps,
+            @RequestParam(value = "fps", required = false) int fps,
             @RequestParam(value = "length", required = false) Integer length
     ) {
         try {
-            System.out.println("시작");
             // Create headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
