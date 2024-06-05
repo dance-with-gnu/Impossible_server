@@ -28,5 +28,6 @@ public class Video {
     private Integer view;
     private Integer poseCategoryId; // 0 for full body, 1 for half body
     private String videoUrl;
+    private String videoThumbnail;
     private LocalDateTime createDate;
 }
