@@ -40,14 +40,15 @@ public class S3Util {
             log.error("파일 변환 중 오류 발생: ", e);
             throw new RuntimeException(e);
         }
-
+        UUID fileUUID = UUID.randomUUID();
         // S3에 저장된 파일 이름
-        String fileName = filePath + "/" + UUID.randomUUID();
+        String fileName = filePath + "/" + fileUUID;
 
         // s3로 업로드 후 로컬 파일 삭제
         String uploadImageUrl = putS3(uploadFile, fileName);
+        String resultUrl = "https://kr.object.ncloudstorage.com/impossible.bucket/"+filePath+"/"+fileUUID;
         removeNewFile(uploadFile);
-        return uploadImageUrl;
+        return resultUrl;
     }
 
     /**
